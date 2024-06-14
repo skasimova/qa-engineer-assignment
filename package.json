@@ -1,0 +1,19 @@
+{
+  "name": "qa-assignment",
+  "version": "1.0.0",
+  "description": "Welcome to the QA Engineer Technical Assignment. We expect the work to take a few hours, and we thank you in advance for taking that time for us!",
+  "main": "bundle.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "start": "node tests/test.spec.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.44.1",
+    "@types/node": "^20.14.2"
+  }
+}

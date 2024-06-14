@@ -1,7 +1,40 @@
-// playwright.config.ts
-import { defineConfig } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
-  testDir: './tests', // directory for test files
-  testMatch: '**/*.spec.ts', // or '**/*.test.ts' depending on your convention
+  // Look for test files in the "tests" directory, relative to this configuration file.
+  testDir: 'tests',
+
+  // Run all tests in parallel.
+  fullyParallel: true,
+
+  // Fail the build on CI if you accidentally left test.only in the source code.
+  forbidOnly: !!process.env.CI,
+
+  // Retry on CI only.
+  retries: process.env.CI ? 2 : 0,
+
+  // Opt out of parallel tests on CI.
+  workers: process.env.CI ? 1 : undefined,
+
+  // Reporter to use
+  reporter: 'html',
+
+  use: {
+    baseURL: 'http://localhost:8000',
+    trace: 'on-first-retry',
+    video: "retain-on-failure",
+  },
+  // Configure projects for major browsers.
+  projects: [
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+    },
+  ],
+  // Run your local dev server before starting the tests.
+  webServer: {
+    command: 'npm run start',
+    url: 'http://127.0.0.1:3000',
+    reuseExistingServer: !process.env.CI,
+  },
 });
